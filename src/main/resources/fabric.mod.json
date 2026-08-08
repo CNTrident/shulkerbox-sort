@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "shulkerbox_sort",
+  "version": "${version}",
+  "name": "Shulker Box Sort",
+  "description": "Globally merges and sorts items across ordinary shulker boxes using Item Scroller's configured order.",
+  "authors": ["CNTrident"],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.cntrident.shulkerboxsort.ShulkerBoxSortClient"
+    ]
+  },
+  "mixins": [
+    "shulkerbox_sort.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.18.4",
+    "minecraft": ">=26.1 <26.2",
+    "java": ">=25",
+    "fabric-api": "*"
+  },
+  "recommends": {
+    "itemscroller": ">=${itemscroller_min_version}",
+    "quickshulker": ">=${quickshulker_version}-"
+  }
+}

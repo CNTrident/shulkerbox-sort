@@ -1,0 +1,8 @@
+.gradle/
+.tools/
+build/
+run-client/
+out/
+*.iml
+.idea/
+backups/

@@ -1,0 +1,20 @@
+{
+  "gui.shulkerbox_sort.button.sort": "合并并排序潜影盒",
+  "gui.shulkerbox_sort.button.running": "正在合并并排序…",
+  "message.shulkerbox_sort.started": "潜影盒全局排序已开始；整理期间请勿移动背包内任何物品",
+  "message.shulkerbox_sort.completed": "排序完成：腾空 %s 个潜影盒，剩余 %s 个非空盒，执行 %s 次跨盒移动",
+  "message.shulkerbox_sort.inventory_full": "背包没有空槽，未执行整理",
+  "message.shulkerbox_sort.cursor_not_empty": "请先清空鼠标光标上的物品",
+  "message.shulkerbox_sort.inventory_only": "只能从原版玩家背包界面开始整理",
+  "message.shulkerbox_sort.inventory_disabled": "潜影盒整理期间背包已禁用",
+  "message.shulkerbox_sort.quickshulker_unavailable": "Quick Shulker API 不可用或拒绝打开，整理已中止",
+  "message.shulkerbox_sort.sync_timeout": "等待服务端同步超时，已安全中止整理",
+  "message.shulkerbox_sort.safe_abort": "界面或玩家状态发生变化，已安全中止整理",
+  "message.shulkerbox_sort.inventory_changed": "背包内容与整理计划不一致，已安全中止",
+  "message.shulkerbox_sort.staging_occupied": "中转槽被占用，已安全中止整理",
+  "message.shulkerbox_sort.cursor_recovery_failed": "无法确认光标物品已安全放回；容器保持打开，请手动放回物品",
+  "message.shulkerbox_sort.itemscroller_unavailable": "无法使用 Item Scroller 排序规则，未执行排序",
+  "message.shulkerbox_sort.hotbar_staging_failed": "无法安全腾出快捷栏中转槽，排序已中止",
+  "message.shulkerbox_sort.hotbar_restore_failed": "快捷栏中仍有中转物品；容器保持当前状态，请手动恢复",
+  "message.shulkerbox_sort.layout_changed": "潜影盒布局与排序计划不一致，已停止自动操作"
+}

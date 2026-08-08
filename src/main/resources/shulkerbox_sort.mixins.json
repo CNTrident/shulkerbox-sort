@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "com.cntrident.shulkerboxsort.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "client": [
+    "AbstractContainerScreenAccessor",
+    "ClientPacketListenerMixin",
+    "MinecraftScreenMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "gui.shulkerbox_sort.button.sort": "Merge and sort shulker boxes",
+  "gui.shulkerbox_sort.button.running": "Merging and sorting...",
+  "message.shulkerbox_sort.started": "Global shulker sorting started; do not move any inventory items until it finishes",
+  "message.shulkerbox_sort.completed": "Sorting complete: emptied %s boxes; %s non-empty boxes remain; %s cross-box moves",
+  "message.shulkerbox_sort.inventory_full": "The inventory has no empty slot; nothing was changed",
+  "message.shulkerbox_sort.cursor_not_empty": "Clear the item carried by the cursor first",
+  "message.shulkerbox_sort.inventory_only": "Packing can only start from the vanilla player inventory",
+  "message.shulkerbox_sort.inventory_disabled": "The inventory is disabled while shulker sorting is running",
+  "message.shulkerbox_sort.quickshulker_unavailable": "Quick Shulker API is unavailable or refused to open; packing stopped",
+  "message.shulkerbox_sort.sync_timeout": "Timed out waiting for server synchronization; packing stopped safely",
+  "message.shulkerbox_sort.safe_abort": "The screen or player state changed; packing stopped safely",
+  "message.shulkerbox_sort.inventory_changed": "Inventory contents no longer match the plan; packing stopped safely",
+  "message.shulkerbox_sort.staging_occupied": "The staging slot was occupied; packing stopped safely",
+  "message.shulkerbox_sort.cursor_recovery_failed": "Could not confirm cursor recovery; the container was left open for manual recovery",
+  "message.shulkerbox_sort.itemscroller_unavailable": "Item Scroller's sorting rules are unavailable; nothing was sorted",
+  "message.shulkerbox_sort.hotbar_staging_failed": "Could not safely reserve a hotbar staging slot; sorting stopped",
+  "message.shulkerbox_sort.hotbar_restore_failed": "The hotbar still contains a staging item; the current container was left open for manual recovery",
+  "message.shulkerbox_sort.layout_changed": "The shulker layout no longer matches the sorting plan; automation stopped"
+}
