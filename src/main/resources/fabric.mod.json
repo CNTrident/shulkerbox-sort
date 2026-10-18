@@ -2,12 +2,13 @@
   "schemaVersion": 1,
   "id": "shulkerbox_sort",
   "version": "${version}",
-  "name": "Shulker Box Sort",
-  "description": "Globally merges and sorts items across ordinary shulker boxes using Item Scroller's configured order.",
+  "name": "Shulker Box Sort (Server)",
+  "description": "服务端潜影盒合并与排序模组，内置物品滚轮默认分类与名称排序。客户端未安装时，玩家可直接使用 /shulkersort 整理自己的背包，无需 OP。客户端安装后可额外使用背包中的整理按钮。",
   "authors": ["CNTrident"],
-  "license": "MIT",
-  "environment": "client",
+  "license": ["MIT", "LGPL-3.0-only"],
+  "environment": "*",
   "entrypoints": {
+    "main": ["com.cntrident.shulkerboxsort.ShulkerBoxSort"],
     "client": [
       "com.cntrident.shulkerboxsort.ShulkerBoxSortClient"
     ]
@@ -17,12 +18,8 @@
   ],
   "depends": {
     "fabricloader": ">=0.18.4",
-    "minecraft": ">=26.1 <26.2",
+    "minecraft": ">=26.2 <26.3",
     "java": ">=25",
     "fabric-api": "*"
-  },
-  "recommends": {
-    "itemscroller": ">=${itemscroller_min_version}",
-    "quickshulker": ">=${quickshulker_version}-"
   }
 }

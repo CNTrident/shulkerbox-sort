@@ -7,7 +7,7 @@ version = mod_version
 group = mod_group
 
 base {
-    archivesName = "${mod_id}-fabric-${minecraft_version}"
+    archivesName = "${mod_id}-server-fabric-${minecraft_version}"
 }
 
 java {
@@ -17,14 +17,6 @@ java {
 }
 
 repositories {
-    maven {
-        name = 'Modrinth'
-        url = 'https://api.modrinth.com/maven'
-    }
-    maven {
-        name = 'Masa'
-        url = 'https://masa.dy.fi/maven'
-    }
     mavenCentral()
 }
 
@@ -33,14 +25,21 @@ dependencies {
 
     implementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     implementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
-    implementation "maven.modrinth:item-scroller:${itemscroller_compile_version}"
 
     testImplementation platform('org.junit:junit-bom:5.13.4')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation "net.fabricmc:fabric-loader-junit:${fabric_loader_version}"
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 loom {
+    splitEnvironmentSourceSets()
+    mods {
+        shulkerbox_sort {
+            sourceSet sourceSets.main
+            sourceSet sourceSets.client
+        }
+    }
     runs {
         client {
             runDir 'run-client'
@@ -50,14 +49,10 @@ loom {
 
 processResources {
     inputs.property 'version', mod_version
-    inputs.property 'quickshulker_version', quickshulker_version
-    inputs.property 'itemscroller_min_version', itemscroller_min_version
 
     filesMatching('fabric.mod.json') {
         expand(
-                version: mod_version,
-                quickshulker_version: quickshulker_version,
-                itemscroller_min_version: itemscroller_min_version
+                version: mod_version
         )
     }
 }
@@ -72,6 +67,11 @@ tasks.withType(Test).configureEach {
 }
 
 jar {
+    from('LICENSES') { into 'META-INF/licenses' }
+    from('THIRD_PARTY_NOTICES.md')
+    from('src/main/java/com/cntrident/shulkerboxsort/server/DefaultItemOrder.java') {
+        into 'META-INF/sources/com/cntrident/shulkerboxsort/server'
+    }
     from('LICENSE') {
         rename { "${it}_${base.archivesName.get()}" }
     }

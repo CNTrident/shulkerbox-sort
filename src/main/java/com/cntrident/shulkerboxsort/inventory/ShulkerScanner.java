@@ -3,7 +3,7 @@ package com.cntrident.shulkerboxsort.inventory;
 import com.cntrident.shulkerboxsort.planner.PackingPlanner;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.Container;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemContainerContents;
@@ -26,7 +26,7 @@ public final class ShulkerScanner {
                              int lockedHomogeneousFullBoxes) {
     }
 
-    public static ScanResult scan(Inventory inventory) {
+    public static ScanResult scan(Container inventory) {
         List<Integer> stagingSlots = new ArrayList<>();
         List<PackingPlanner.Box<ItemStackKey>> boxes = new ArrayList<>();
         int ignored = 0;
@@ -50,6 +50,16 @@ public final class ShulkerScanner {
             // made filled boxes stackable, opening one item from that stack is
             // ambiguous and therefore outside the safe automation contract.
             if (boxStack.getCount() != 1) {
+                ignored++;
+                continue;
+            }
+
+            List<ItemStack> allStored = boxStack.getOrDefault(DataComponents.CONTAINER,
+                    ItemContainerContents.EMPTY).allItemsCopyStream().toList();
+            // Never truncate data belonging to a modded/invalid container.
+            if (allStored.size() > SHULKER_SLOTS || allStored.stream().anyMatch(item ->
+                    !item.isEmpty() && (item.getCount() > item.getMaxStackSize()
+                            || item.getCount() <= 0))) {
                 ignored++;
                 continue;
             }
@@ -109,7 +119,10 @@ public final class ShulkerScanner {
 
     public static boolean isNamedOrSpecial(ItemStack stack) {
         return stack.get(DataComponents.CUSTOM_NAME) != null
-                || stack.get(DataComponents.CONTAINER_LOOT) != null;
+                || stack.get(DataComponents.CONTAINER_LOOT) != null
+                || stack.get(DataComponents.CUSTOM_DATA) != null
+                || stack.get(DataComponents.BLOCK_ENTITY_DATA) != null
+                || stack.get(DataComponents.LOCK) != null;
     }
 
     public static boolean isOrdinaryEmptyShulker(ItemStack stack) {
@@ -120,7 +133,7 @@ public final class ShulkerScanner {
     }
 
     /** Every non-empty ordinary undyed box, including locked homogeneous full boxes. */
-    public static List<Integer> sortableNonEmptyBoxSlots(Inventory inventory) {
+    public static List<Integer> sortableNonEmptyBoxSlots(Container inventory) {
         List<Integer> result = new ArrayList<>();
         for (int slot = 0; slot < PLAYER_INVENTORY_SLOTS; slot++) {
             ItemStack stack = inventory.getItem(slot);

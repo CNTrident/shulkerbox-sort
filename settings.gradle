@@ -9,4 +9,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = 'shulkerbox-sort'
+rootProject.name = 'shulkerbox-sort-server'

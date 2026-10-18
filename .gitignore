@@ -2,6 +2,9 @@
 .tools/
 build/
 run-client/
+run/
+run-server/
+logs/
 out/
 *.iml
 .idea/

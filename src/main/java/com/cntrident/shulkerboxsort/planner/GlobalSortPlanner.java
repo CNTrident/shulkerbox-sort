@@ -61,6 +61,18 @@ public final class GlobalSortPlanner {
 
     public static <K> Plan<K> plan(List<PackingPlanner.Box<K>> input,
                                    Comparator<PackingPlanner.Stack<K>> stackComparator) {
+        return plan(input, stackComparator, true);
+    }
+
+    /** Server writes final layouts directly; no client click/swap sequences are needed. */
+    public static <K> Plan<K> planLayouts(List<PackingPlanner.Box<K>> input,
+                                         Comparator<PackingPlanner.Stack<K>> comparator) {
+        return plan(input, comparator, false);
+    }
+
+    private static <K> Plan<K> plan(List<PackingPlanner.Box<K>> input,
+                                   Comparator<PackingPlanner.Stack<K>> stackComparator,
+                                   boolean buildClickSequences) {
         Objects.requireNonNull(stackComparator, "stackComparator");
         if (input.isEmpty()) {
             return new Plan<>(List.of(), List.of(), List.of(), List.of(), List.of(), 0, 0, 0);
@@ -76,7 +88,7 @@ public final class GlobalSortPlanner {
         }
 
         MergeResult<K> mergeResult = mergeToCanonicalStacks(boxes, boxSize);
-        // Item Scroller may use stack count as a tie breaker. Count is not part
+        // The default comparator may use stack count as a tie breaker. Count is not part
         // of the requested global item order: reordering component-identical
         // stacks only to put a partial stack last creates expensive "bubbling"
         // without saving a slot. Keep their physical first-occurrence order.
@@ -103,7 +115,8 @@ public final class GlobalSortPlanner {
             pageMapping.add(pageForBox[boxIndex]);
         }
 
-        List<SwapCycle<K>> cycles = buildSwapCycles(mergeResult.boxes, targets, boxSize);
+        List<SwapCycle<K>> cycles = buildClickSequences
+                ? buildSwapCycles(mergeResult.boxes, targets, boxSize) : List.of();
         int initialNonEmpty = countNonEmptyBoxes(boxes);
         int finalNonEmpty = countNonEmptyBoxes(targets);
         int crossBoxMoves = mergeResult.merges.stream()
@@ -126,7 +139,7 @@ public final class GlobalSortPlanner {
     /**
      * Keeps six-or-more-stack item groups together where the minimum possible
      * number of non-empty pages allows it. Large groups are allocated first;
-     * small groups retain Item Scroller order and fill the remaining holes.
+     * small groups retain default item order and fill the remaining holes.
      */
     private static <K> List<List<PackingPlanner.Stack<K>>> partitionPages(
             List<PackingPlanner.Stack<K>> sorted, int boxCount, int boxSize,

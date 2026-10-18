@@ -4,11 +4,11 @@
 
 ## 开发环境
 
-- Minecraft 26.1.2
+- Minecraft 26.2
 - Java 25
-- Fabric Loader 0.19.1
-- 与 Minecraft 26.1.x 匹配的 Fabric API
-- Item Scroller 与 Quick Shulker
+- Fabric Loader 0.19.3（运行时最低声明 0.18.4）
+- 与 Minecraft 26.2 匹配的 Fabric API
+- 无需 Item Scroller、Quick Shulker 或 MaLiLib
 
 ## 提交流程
 
@@ -20,9 +20,9 @@
 
 ## 安全要求
 
-- 不直接伪造容器内容或潜影盒数据组件。
-- 不在光标持物时关闭容器或主动丢弃物品。
-- 新增点击路径必须校验容器、state ID、槽位内容和服务端同步。
+- 所有潜影盒修改在服务端主线程执行；先验证完整组件和物品数量守恒，再提交。
+- 不在光标持物时整理，不主动丢弃物品。
+- 写入前检查背包快照，异常时恢复并核验原库存。
 - 更改依赖范围时，应避免无必要地锁死补丁版本。
 
-提交贡献即表示你有权提供相关代码，并同意其按仓库的 MIT License 发布。
+提交贡献即表示你有权提供相关代码，并同意其按相应文件的许可证发布：原有代码为 MIT，移植的 `DefaultItemOrder.java` 为 LGPL-3.0-only。修改移植部分时须保留来源与许可，见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。

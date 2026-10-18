@@ -2,10 +2,9 @@
   "required": true,
   "package": "com.cntrident.shulkerboxsort.mixin",
   "compatibilityLevel": "JAVA_25",
+  "mixins": ["CreativeModeTabAccessor"],
   "client": [
-    "AbstractContainerScreenAccessor",
-    "ClientPacketListenerMixin",
-    "MinecraftScreenMixin"
+    "AbstractContainerScreenAccessor"
   ],
   "injectors": {
     "defaultRequire": 1
